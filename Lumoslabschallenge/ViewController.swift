@@ -22,12 +22,12 @@ class ViewController: UIViewController , CLLocationManagerDelegate{
             if (self.mapView == nil)
             {
                 self.mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
+                mapView!.isMyLocationEnabled = true
+                view = mapView
             }
             else {
                 self.mapView?.camera = camera
             }
-            mapView!.isMyLocationEnabled = true
-            view = mapView
         }
     }
     func updateMapLocation(loc:CLLocation) {
