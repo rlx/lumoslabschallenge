@@ -1,0 +1,427 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		62AFDDE51DF2C64C00F05E8B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62AFDDE41DF2C64C00F05E8B /* AppDelegate.swift */; };
+		62AFDDE71DF2C64C00F05E8B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62AFDDE61DF2C64C00F05E8B /* ViewController.swift */; };
+		62AFDDEA1DF2C64C00F05E8B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 62AFDDE81DF2C64C00F05E8B /* Main.storyboard */; };
+		62AFDDEC1DF2C64C00F05E8B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 62AFDDEB1DF2C64C00F05E8B /* Assets.xcassets */; };
+		62AFDDEF1DF2C64C00F05E8B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 62AFDDED1DF2C64C00F05E8B /* LaunchScreen.storyboard */; };
+		62AFDDFA1DF2C64C00F05E8B /* LumoslabschallengeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62AFDDF91DF2C64C00F05E8B /* LumoslabschallengeTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		62AFDDF61DF2C64C00F05E8B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 62AFDDD91DF2C64B00F05E8B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 62AFDDE01DF2C64B00F05E8B;
+			remoteInfo = Lumoslabschallenge;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		62AFDDE11DF2C64C00F05E8B /* Lumoslabschallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lumoslabschallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		62AFDDE41DF2C64C00F05E8B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		62AFDDE61DF2C64C00F05E8B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		62AFDDE91DF2C64C00F05E8B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		62AFDDEB1DF2C64C00F05E8B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		62AFDDEE1DF2C64C00F05E8B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		62AFDDF01DF2C64C00F05E8B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		62AFDDF51DF2C64C00F05E8B /* LumoslabschallengeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LumoslabschallengeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		62AFDDF91DF2C64C00F05E8B /* LumoslabschallengeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LumoslabschallengeTests.swift; sourceTree = "<group>"; };
+		62AFDDFB1DF2C64C00F05E8B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		62AFDDDE1DF2C64B00F05E8B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		62AFDDF21DF2C64C00F05E8B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		62AFDDD81DF2C64B00F05E8B = {
+			isa = PBXGroup;
+			children = (
+				62AFDDE31DF2C64C00F05E8B /* Lumoslabschallenge */,
+				62AFDDF81DF2C64C00F05E8B /* LumoslabschallengeTests */,
+				62AFDDE21DF2C64C00F05E8B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		62AFDDE21DF2C64C00F05E8B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				62AFDDE11DF2C64C00F05E8B /* Lumoslabschallenge.app */,
+				62AFDDF51DF2C64C00F05E8B /* LumoslabschallengeTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		62AFDDE31DF2C64C00F05E8B /* Lumoslabschallenge */ = {
+			isa = PBXGroup;
+			children = (
+				62AFDDE41DF2C64C00F05E8B /* AppDelegate.swift */,
+				62AFDDE61DF2C64C00F05E8B /* ViewController.swift */,
+				62AFDDE81DF2C64C00F05E8B /* Main.storyboard */,
+				62AFDDEB1DF2C64C00F05E8B /* Assets.xcassets */,
+				62AFDDED1DF2C64C00F05E8B /* LaunchScreen.storyboard */,
+				62AFDDF01DF2C64C00F05E8B /* Info.plist */,
+			);
+			path = Lumoslabschallenge;
+			sourceTree = "<group>";
+		};
+		62AFDDF81DF2C64C00F05E8B /* LumoslabschallengeTests */ = {
+			isa = PBXGroup;
+			children = (
+				62AFDDF91DF2C64C00F05E8B /* LumoslabschallengeTests.swift */,
+				62AFDDFB1DF2C64C00F05E8B /* Info.plist */,
+			);
+			path = LumoslabschallengeTests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		62AFDDE01DF2C64B00F05E8B /* Lumoslabschallenge */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 62AFDDFE1DF2C64C00F05E8B /* Build configuration list for PBXNativeTarget "Lumoslabschallenge" */;
+			buildPhases = (
+				62AFDDDD1DF2C64B00F05E8B /* Sources */,
+				62AFDDDE1DF2C64B00F05E8B /* Frameworks */,
+				62AFDDDF1DF2C64B00F05E8B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Lumoslabschallenge;
+			productName = Lumoslabschallenge;
+			productReference = 62AFDDE11DF2C64C00F05E8B /* Lumoslabschallenge.app */;
+			productType = "com.apple.product-type.application";
+		};
+		62AFDDF41DF2C64C00F05E8B /* LumoslabschallengeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 62AFDE011DF2C64C00F05E8B /* Build configuration list for PBXNativeTarget "LumoslabschallengeTests" */;
+			buildPhases = (
+				62AFDDF11DF2C64C00F05E8B /* Sources */,
+				62AFDDF21DF2C64C00F05E8B /* Frameworks */,
+				62AFDDF31DF2C64C00F05E8B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				62AFDDF71DF2C64C00F05E8B /* PBXTargetDependency */,
+			);
+			name = LumoslabschallengeTests;
+			productName = LumoslabschallengeTests;
+			productReference = 62AFDDF51DF2C64C00F05E8B /* LumoslabschallengeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		62AFDDD91DF2C64B00F05E8B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0810;
+				LastUpgradeCheck = 0810;
+				ORGANIZATIONNAME = "Lior Rudnik";
+				TargetAttributes = {
+					62AFDDE01DF2C64B00F05E8B = {
+						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = 94864BWCZV;
+						ProvisioningStyle = Automatic;
+					};
+					62AFDDF41DF2C64C00F05E8B = {
+						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = 94864BWCZV;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 62AFDDE01DF2C64B00F05E8B;
+					};
+				};
+			};
+			buildConfigurationList = 62AFDDDC1DF2C64B00F05E8B /* Build configuration list for PBXProject "Lumoslabschallenge" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 62AFDDD81DF2C64B00F05E8B;
+			productRefGroup = 62AFDDE21DF2C64C00F05E8B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				62AFDDE01DF2C64B00F05E8B /* Lumoslabschallenge */,
+				62AFDDF41DF2C64C00F05E8B /* LumoslabschallengeTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		62AFDDDF1DF2C64B00F05E8B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				62AFDDEF1DF2C64C00F05E8B /* LaunchScreen.storyboard in Resources */,
+				62AFDDEC1DF2C64C00F05E8B /* Assets.xcassets in Resources */,
+				62AFDDEA1DF2C64C00F05E8B /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		62AFDDF31DF2C64C00F05E8B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		62AFDDDD1DF2C64B00F05E8B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				62AFDDE71DF2C64C00F05E8B /* ViewController.swift in Sources */,
+				62AFDDE51DF2C64C00F05E8B /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		62AFDDF11DF2C64C00F05E8B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				62AFDDFA1DF2C64C00F05E8B /* LumoslabschallengeTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		62AFDDF71DF2C64C00F05E8B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 62AFDDE01DF2C64B00F05E8B /* Lumoslabschallenge */;
+			targetProxy = 62AFDDF61DF2C64C00F05E8B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		62AFDDE81DF2C64C00F05E8B /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				62AFDDE91DF2C64C00F05E8B /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		62AFDDED1DF2C64C00F05E8B /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				62AFDDEE1DF2C64C00F05E8B /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		62AFDDFC1DF2C64C00F05E8B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		62AFDDFD1DF2C64C00F05E8B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		62AFDDFF1DF2C64C00F05E8B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 94864BWCZV;
+				INFOPLIST_FILE = Lumoslabschallenge/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.rudniklior.Lumoslabschallenge;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		62AFDE001DF2C64C00F05E8B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 94864BWCZV;
+				INFOPLIST_FILE = Lumoslabschallenge/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.rudniklior.Lumoslabschallenge;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		62AFDE021DF2C64C00F05E8B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 94864BWCZV;
+				INFOPLIST_FILE = LumoslabschallengeTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.rudniklior.LumoslabschallengeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Lumoslabschallenge.app/Lumoslabschallenge";
+			};
+			name = Debug;
+		};
+		62AFDE031DF2C64C00F05E8B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 94864BWCZV;
+				INFOPLIST_FILE = LumoslabschallengeTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.rudniklior.LumoslabschallengeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Lumoslabschallenge.app/Lumoslabschallenge";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		62AFDDDC1DF2C64B00F05E8B /* Build configuration list for PBXProject "Lumoslabschallenge" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				62AFDDFC1DF2C64C00F05E8B /* Debug */,
+				62AFDDFD1DF2C64C00F05E8B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		62AFDDFE1DF2C64C00F05E8B /* Build configuration list for PBXNativeTarget "Lumoslabschallenge" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				62AFDDFF1DF2C64C00F05E8B /* Debug */,
+				62AFDE001DF2C64C00F05E8B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		62AFDE011DF2C64C00F05E8B /* Build configuration list for PBXNativeTarget "LumoslabschallengeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				62AFDE021DF2C64C00F05E8B /* Debug */,
+				62AFDE031DF2C64C00F05E8B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 62AFDDD91DF2C64B00F05E8B /* Project object */;
+}
