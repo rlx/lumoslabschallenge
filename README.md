@@ -30,3 +30,8 @@ Run the pod install command. This will install the APIs specified in the Podfile
 
 pod install
 Close Xcode, and then open (double-click) your project's .xcworkspace file to launch Xcode. From this time onwards, you must use the .xcworkspace file to open the project.
+==================
+2) Obtain API key (API console)
+==================
+3) Use google API console to enable the relevant APIs
+==================
