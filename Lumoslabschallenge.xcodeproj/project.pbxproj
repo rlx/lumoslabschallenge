@@ -14,6 +14,7 @@
 		62AFDDEC1DF2C64C00F05E8B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 62AFDDEB1DF2C64C00F05E8B /* Assets.xcassets */; };
 		62AFDDEF1DF2C64C00F05E8B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 62AFDDED1DF2C64C00F05E8B /* LaunchScreen.storyboard */; };
 		62AFDDFA1DF2C64C00F05E8B /* LumoslabschallengeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62AFDDF91DF2C64C00F05E8B /* LumoslabschallengeTests.swift */; };
+		9B701FCD1DF416000083EB04 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 9B701FCC1DF416000083EB04 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +39,7 @@
 		62AFDDF51DF2C64C00F05E8B /* LumoslabschallengeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LumoslabschallengeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		62AFDDF91DF2C64C00F05E8B /* LumoslabschallengeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LumoslabschallengeTests.swift; sourceTree = "<group>"; };
 		62AFDDFB1DF2C64C00F05E8B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9B701FCC1DF416000083EB04 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		BE01D376EA27358EE5F11F5D /* libPods-Lumoslabschallenge.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Lumoslabschallenge.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFFF07F32D5FFA4E6297A9C4 /* Pods-Lumoslabschallenge.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lumoslabschallenge.release.xcconfig"; path = "Pods/Target Support Files/Pods-Lumoslabschallenge/Pods-Lumoslabschallenge.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -64,6 +66,7 @@
 		62AFDDD81DF2C64B00F05E8B = {
 			isa = PBXGroup;
 			children = (
+				9B701FCC1DF416000083EB04 /* README.md */,
 				62AFDDE31DF2C64C00F05E8B /* Lumoslabschallenge */,
 				62AFDDF81DF2C64C00F05E8B /* LumoslabschallengeTests */,
 				62AFDDE21DF2C64C00F05E8B /* Products */,
@@ -266,7 +269,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -276,6 +279,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B701FCD1DF416000083EB04 /* README.md in Sources */,
 				62AFDDE71DF2C64C00F05E8B /* ViewController.swift in Sources */,
 				62AFDDE51DF2C64C00F05E8B /* AppDelegate.swift in Sources */,
 			);
