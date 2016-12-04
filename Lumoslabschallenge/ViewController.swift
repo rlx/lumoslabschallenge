@@ -11,7 +11,7 @@ import GoogleMaps
 
 
 class ViewController: UIViewController , CLLocationManagerDelegate{
-    let locMan = CLLocationManager()
+    var locMan:CLLocationManager? = CLLocationManager()
     var mapView:GMSMapView? = nil
     var currentLocation:CLLocation? = nil
     
@@ -53,7 +53,7 @@ class ViewController: UIViewController , CLLocationManagerDelegate{
             showAlertNoAction(title: "Restricted/Denied", description: "Location services are restricted (Parental control?) or Denied.\nThis App cannot work without it, sorry.")
         case .notDetermined:
             print("No authorization: \(state)")
-            locMan.requestWhenInUseAuthorization()
+            locMan?.requestWhenInUseAuthorization()
         default:
             print("We have already authorization for location services")
             break
@@ -61,24 +61,30 @@ class ViewController: UIViewController , CLLocationManagerDelegate{
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        if (self.locMan == nil)
+        {
+            self.locMan = CLLocationManager()
+        }
         self.setupLocationAuthorization()
-        self.locMan.delegate = self
+        self.locMan?.delegate = self
         // assuming location is enabled and working (otherwise an alert would have been displayed)
-        self.locMan.startUpdatingLocation() // this will generate at least one location update which will drive the map configuration.
+        self.locMan?.startUpdatingLocation() // this will generate at least one location update which will drive the map configuration.
     }
 
     //MARK: - memory
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+        self.mapView = nil
+        self.locMan = nil
+        self.currentLocation = nil
     }
     //MARK: - location update delegate
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        self.locMan.stopUpdatingLocation()
+        manager.stopUpdatingLocation()
         DispatchQueue.main.async {
             self.updateMapLocation(loc: locations.first!)
         }
     }
-
 }
 
