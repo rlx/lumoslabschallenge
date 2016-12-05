@@ -101,16 +101,18 @@ class ViewController: UIViewController , CLLocationManagerDelegate{
         print("failed to obtain location with Error: \(error)")
     }
     //MARK: places
-    func obtainPlacesInMapVisibleRegion() {
+    // This SDK API does not work well - it doesnt respect the location!
+    // Leaving it for reference. The work around is to use this web service: https://maps.googleapis.com/maps/api/place/nearbysearch/json?input=italiam%20restaurant&types=establishment&location=32.0833,34.804469&radius=50&key=AIzaSyA-RfcEPpzIuiBoiBpM3Y55RZMaLOXvIhE
+    
+    func obtainPlacesAutoCompleteInMapVisibleRegion() {
         let filter = GMSAutocompleteFilter()
         filter.type = .establishment
         filter.country = "US" // limit to US otherwise we receive from other countries (bug in the API?)
         DispatchQueue.main.async {
             // this must run on main thread
             let visibleRegion = self.mapView!.projection.visibleRegion()
-            print("visible region: \(visibleRegion)")
             let bounds = GMSCoordinateBounds(coordinate: visibleRegion.farLeft, coordinate: visibleRegion.nearRight)
-            // unfortunetly this API doesnt use the bounds as expected so we might receive places outside of the area we requestd
+            // unfortunetly this API doesnt use the bounds as expected so we receive places outside of the area we requestd!
             self.placesMan?.autocompleteQuery("Italian restaurant", bounds: bounds, filter: filter, callback: {(results, error) -> Void in
                 if let error = error {
                     print("Autocomplete error \(error)")
@@ -133,12 +135,35 @@ class ViewController: UIViewController , CLLocationManagerDelegate{
         }
     }
     func createAMarkerOnTheMapFor(place:GMSPlace) {
-        let marker = GMSMarker(position: place.coordinate)
-        marker.title = place.name
-        marker.snippet = place.description
-        marker.infoWindowAnchor = CGPoint(x: 0.5, y: 0.5)
-        marker.map = self.mapView
+        // interacting with the map view, lets do it on main thread
+        DispatchQueue.main.async {
+            let marker = GMSMarker(position: place.coordinate)
+            marker.title = place.name
+            marker.snippet = place.description
+            marker.infoWindowAnchor = CGPoint(x: 0.5, y: 0.5)
+            marker.map = self.mapView
+        }
+    }
+
+    func obtainPlacesNearCurrentUserLocation() {
+        // we call the nearby search WEB service
+        NSURLRequest.
+        //parse the results JSON string
         
+    }
+    let PLACE_ID_KEY = "place_id"
+    
+    func createMarkerForMapSearchNearbyResults(data:Dictionary<String,>) {
+        let placeID = data[PLACE_ID_KEY]
+        self.placesMan!.lookUpPlaceID(placeID!, callback: { (place:GMSPlace?, error:Error?) in
+            print("details for \(place?.name):\(place) ")
+            if let p = place {
+                self.createAMarkerOnTheMapFor(place: p)
+            }
+            else {
+                print("error while retreiving place info: \(error)")
+            }
+        })
     }
 }
 
