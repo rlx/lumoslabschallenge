@@ -134,6 +134,10 @@ class ViewController: UIViewController , CLLocationManagerDelegate{
     }
     func createAMarkerOnTheMapFor(place:GMSPlace) {
         let marker = GMSMarker(position: place.coordinate)
+        marker.title = place.name
+        marker.snippet = place.description
+        marker.infoWindowAnchor = CGPoint(x: 0.5, y: 0.5)
+        marker.map = self.mapView
         
     }
 }
