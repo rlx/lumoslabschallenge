@@ -8,34 +8,43 @@
 
 import UIKit
 import GoogleMaps
-
+import GooglePlaces
 
 class ViewController: UIViewController , CLLocationManagerDelegate{
     var locMan:CLLocationManager? = CLLocationManager()
     var mapView:GMSMapView? = nil
     var currentLocation:CLLocation? = nil
+    var placesMan:GMSPlacesClient? = nil
     
+    func createMap(camera:GMSCameraPosition)
+    {
+        DispatchQueue.main.async {
+            self.mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
+            self.mapView!.isMyLocationEnabled = true
+            self.view = self.mapView!
+            DispatchQueue.global().async {
+                self.obtainPlacesInMapVisibleRegion()
+            }
+        }
+    }
     func setupMap()
     {
         if let loc = currentLocation {
             let camera = GMSCameraPosition.camera(withLatitude: loc.coordinate.latitude, longitude: loc.coordinate.longitude, zoom: 12.0)
-            if (self.mapView == nil)
-            {
-                self.mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
-                mapView!.isMyLocationEnabled = true
-                view = mapView
+            if (self.mapView == nil) {
+                createMap(camera: camera)
             }
             else {
-                self.mapView?.camera = camera
+                DispatchQueue.main.async {
+                    self.mapView!.camera = camera
+                }
             }
         }
     }
     func updateMapLocation(loc:CLLocation) {
         print("location updated to \(loc)")
         currentLocation = loc
-        DispatchQueue.main.async {
-            self.setupMap()
-        }
+        self.setupMap()
     }
     
     func showAlertNoAction(title:String, description:String) {
@@ -61,14 +70,16 @@ class ViewController: UIViewController , CLLocationManagerDelegate{
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        if (self.locMan == nil)
+        placesMan = GMSPlacesClient.shared()
+        if (locMan == nil)
         {
-            self.locMan = CLLocationManager()
+            locMan = CLLocationManager()
         }
-        self.setupLocationAuthorization()
-        self.locMan?.delegate = self
+        setupLocationAuthorization()
+        locMan?.delegate = self
         // assuming location is enabled and working (otherwise an alert would have been displayed)
-        self.locMan?.startUpdatingLocation() // this will generate at least one location update which will drive the map configuration.
+        locMan?.desiredAccuracy = kCLLocationAccuracyKilometer
+        locMan?.requestLocation() // this will generate one location update which will drive the map configuration.
     }
 
     //MARK: - memory
@@ -79,12 +90,51 @@ class ViewController: UIViewController , CLLocationManagerDelegate{
         self.locMan = nil
         self.currentLocation = nil
     }
-    //MARK: - location update delegate
+    //MARK: - location callbacks
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         manager.stopUpdatingLocation()
-        DispatchQueue.main.async {
+        DispatchQueue.global().async {
             self.updateMapLocation(loc: locations.first!)
         }
+    }
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("failed to obtain location with Error: \(error)")
+    }
+    //MARK: places
+    func obtainPlacesInMapVisibleRegion() {
+        let filter = GMSAutocompleteFilter()
+        filter.type = .establishment
+        filter.country = "US" // limit to US otherwise we receive from other countries (bug in the API?)
+        DispatchQueue.main.async {
+            // this must run on main thread
+            let visibleRegion = self.mapView!.projection.visibleRegion()
+            print("visible region: \(visibleRegion)")
+            let bounds = GMSCoordinateBounds(coordinate: visibleRegion.farLeft, coordinate: visibleRegion.nearRight)
+            // unfortunetly this API doesnt use the bounds as expected so we might receive places outside of the area we requestd
+            self.placesMan?.autocompleteQuery("Italian restaurant", bounds: bounds, filter: filter, callback: {(results, error) -> Void in
+                if let error = error {
+                    print("Autocomplete error \(error)")
+                    return
+                }
+                if let rslts = results {
+                    for result in rslts {
+                        self.placesMan!.lookUpPlaceID(result.placeID!, callback: { (place:GMSPlace?, error:Error?) in
+                            print("details for \(place?.name):\(place) ")
+                            if let p = place {
+                                self.createAMarkerOnTheMapFor(place: p)
+                            }
+                            else {
+                                print("error while retreiving place info: \(error)")
+                            }
+                        })
+                    }
+                }
+            })
+        }
+    }
+    func createAMarkerOnTheMapFor(place:GMSPlace) {
+        let marker = GMSMarker(position: place.coordinate)
+        
     }
 }
 
