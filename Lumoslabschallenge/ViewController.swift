@@ -43,6 +43,7 @@ class ViewController: UIViewController , CLLocationManagerDelegate{
         }
     }
     func updateMapLocation(loc:CLLocation) {
+        locMan?.stopUpdatingLocation()
         print("location updated to \(loc)")
         currentLocation = loc
         self.setupMap()
@@ -64,10 +65,9 @@ class ViewController: UIViewController , CLLocationManagerDelegate{
             showAlertNoAction(title: "Restricted/Denied", description: "Location services are restricted (Parental control?) or Denied.\nThis App cannot work without it, sorry.")
         case .notDetermined:
             print("No authorization: \(state)")
-            locMan?.requestWhenInUseAuthorization()
+            locMan!.requestWhenInUseAuthorization()
         default:
             print("We have already authorization for location services")
-            break
         }
     }
     //MARK: - view did load
@@ -79,10 +79,10 @@ class ViewController: UIViewController , CLLocationManagerDelegate{
             locMan = CLLocationManager()
         }
         setupLocationAuthorization()
-        locMan?.delegate = self
+        locMan!.delegate = self
         // assuming location is enabled and working (otherwise an alert would have been displayed)
-        locMan?.desiredAccuracy = kCLLocationAccuracyKilometer
-        locMan?.requestLocation() // this will generate one location update which will drive the map configuration.
+        locMan!.desiredAccuracy = kCLLocationAccuracyKilometer
+        locMan!.requestLocation() // this will generate one location update which will drive the map configuration.
     }
 
     //MARK: - memory
@@ -95,13 +95,14 @@ class ViewController: UIViewController , CLLocationManagerDelegate{
     }
     //MARK: - location callbacks
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        manager.stopUpdatingLocation()
+        manager.stopUpdatingLocation() // although we request a single update, sometimes a few are generated.
         DispatchQueue.global().async {
             self.updateMapLocation(loc: locations.first!)
         }
     }
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("failed to obtain location with Error: \(error)")
+        showAlertNoAction(title: "Location Failed", description: error.localizedDescription)
     }
     
     //MARK: - places - bad API results (dont use)
@@ -213,6 +214,7 @@ class ViewController: UIViewController , CLLocationManagerDelegate{
                 }
                 else {
                     print("received error: \(error) \ndata: \(data)")
+                    self.showAlertNoAction(title: "Failed - Places nearby", description: error!.localizedDescription)
                 }
             }
             // dont forget the "run" the task
