@@ -11,15 +11,16 @@ The Google Maps SDK for iOS is available as a CocoaPods pod. CocoaPods is an ope
 
 (0) If you don't already have the CocoaPods tool, install it on macOS by running the following command from the terminal. For details, see the CocoaPods Getting Started guide.
 
-sudo gem install cocoapods
+**sudo gem install cocoapods**
 
 (1) Open a terminal and go to the directory of the project (where you can see a file named "PodFile")
 
 (2) Run the pod install command. This will install the APIs specified in the Podfile, along with any dependencies they may have.
 
-pod install
+**pod install**
 
-(3) Close Xcode, and then open (double-click) your project's .xcworkspace file to launch Xcode. From this time onwards, you must use the .xcworkspace file to open the project.
+(3) Close Xcode, and then open (double-click) your project's **.xcworkspace** 
+file to launch Xcode. From this time onwards, you must use the .xcworkspace file to open the project.
 
 ==================
 
