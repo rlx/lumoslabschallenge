@@ -14,7 +14,6 @@
 		62AFDDEC1DF2C64C00F05E8B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 62AFDDEB1DF2C64C00F05E8B /* Assets.xcassets */; };
 		62AFDDEF1DF2C64C00F05E8B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 62AFDDED1DF2C64C00F05E8B /* LaunchScreen.storyboard */; };
 		62AFDDFA1DF2C64C00F05E8B /* LumoslabschallengeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62AFDDF91DF2C64C00F05E8B /* LumoslabschallengeTests.swift */; };
-		9B701FCD1DF416000083EB04 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 9B701FCC1DF416000083EB04 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -279,7 +278,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9B701FCD1DF416000083EB04 /* README.md in Sources */,
 				62AFDDE71DF2C64C00F05E8B /* ViewController.swift in Sources */,
 				62AFDDE51DF2C64C00F05E8B /* AppDelegate.swift in Sources */,
 			);

@@ -23,7 +23,7 @@ class ViewController: UIViewController , CLLocationManagerDelegate{
             self.mapView!.isMyLocationEnabled = true
             self.view = self.mapView!
             DispatchQueue.global().async {
-                self.obtainPlacesInMapVisibleRegion()
+                self.obtainPlacesNearCurrentUserLocation()
             }
         }
     }
@@ -134,36 +134,97 @@ class ViewController: UIViewController , CLLocationManagerDelegate{
             })
         }
     }
+    func translatePriceLevelToStr(pLevel:GMSPlacesPriceLevel) ->String
+    {
+        switch (pLevel) {
+        case .cheap:
+            return "cheap"
+        case .expensive:
+            return "expensive"
+        case .high:
+            return "high"
+        case .medium:
+            return "medium"
+        case .free:
+            return "free"
+        default:
+            return "unknown"
+        }
+    }
     func createAMarkerOnTheMapFor(place:GMSPlace) {
         // interacting with the map view, lets do it on main thread
+        let marker = GMSMarker(position: place.coordinate)
+        marker.title = place.name
+        let openNow = (place.openNowStatus == .yes) ? "Yes": "No (or unknown)"
+        let phone = (place.phoneNumber != nil) ? place.phoneNumber! : ""
+        let address = (place.formattedAddress != nil) ? place.formattedAddress!: ""
+        let rating = place.rating
+        let priceLevel = self.translatePriceLevelToStr(pLevel: place.priceLevel)
+            
+        marker.snippet = "Open:\(openNow) , \(phone)\n\(address)\nrating:\(rating), price level:\(priceLevel)"
+        marker.infoWindowAnchor = CGPoint(x: 0.5, y: 0.5)
         DispatchQueue.main.async {
-            let marker = GMSMarker(position: place.coordinate)
-            marker.title = place.name
-            marker.snippet = place.description
-            marker.infoWindowAnchor = CGPoint(x: 0.5, y: 0.5)
             marker.map = self.mapView
         }
     }
-
+    
     func obtainPlacesNearCurrentUserLocation() {
-        // we call the nearby search WEB service
-        NSURLRequest.
-        //parse the results JSON string
-        
+        // we call the nearby search WEB service instead of the ios SDK
+        let sessionConfig = URLSessionConfiguration.default
+        let session = URLSession(configuration: sessionConfig)
+        let searchTerm = "Italian restaurant"
+        var urlString:String? = nil
+        let radiusMeters = 5000
+        // make sure we have current location (otherwise the urlString will be nil
+        if let coordinate = currentLocation?.coordinate {
+            urlString = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=\(searchTerm)&type=restaurant&location=\(coordinate.latitude),\(coordinate.longitude)&radius=\(radiusMeters)&key=AIzaSyA-RfcEPpzIuiBoiBpM3Y55RZMaLOXvIhE".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+            print("URL: \(urlString)")
+        }
+        // if we have a valid URL object (urlString was not nil)
+        if let url = URL(string: urlString!) {
+            // create a network data task to retrieve the result
+            let task = session.dataTask(with: url) {(data:Data?, response:URLResponse?, error:Error?) in
+                if ((error == nil) && (data != nil)) {
+                    //parse the results JSON string
+                    if let d = try? JSONSerialization.jsonObject(with: data!)  {
+                        let dataDict = d as! Dictionary<String,AnyObject>
+                        // if we made it thus far, lets go over the data and create markers on the map for it
+                        DispatchQueue.global().async {
+                            self.createMarkerForMapSearchNearbyResults(data: dataDict)
+                        }
+                    }
+                }
+                else {
+                    print("received error: \(error) \n data: \(data)")
+                }
+            }
+            task.resume()
+        }
+        else {
+            print("bad url?")
+        }
     }
+    let RESULTS = "results"
     let PLACE_ID_KEY = "place_id"
     
-    func createMarkerForMapSearchNearbyResults(data:Dictionary<String,>) {
-        let placeID = data[PLACE_ID_KEY]
-        self.placesMan!.lookUpPlaceID(placeID!, callback: { (place:GMSPlace?, error:Error?) in
-            print("details for \(place?.name):\(place) ")
-            if let p = place {
-                self.createAMarkerOnTheMapFor(place: p)
+    func createMarkerForMapSearchNearbyResults(data:Dictionary<String,AnyObject>) {
+        if let resultsData:Array<AnyObject> = data[RESULTS] as? Array<AnyObject> {
+            for placeInfo in resultsData{
+                if let placeID:String = placeInfo[PLACE_ID_KEY] as? String {
+                    // now that we extracted the place id, lets get the details
+                    self.placesMan!.lookUpPlaceID(placeID , callback: { (place:GMSPlace?, error:Error?) in
+//                        print("details for \(place?.name):\(place) ")
+                        if let p = place {
+                            // finally create the marker and attach to the map
+                            self.createAMarkerOnTheMapFor(place: p)
+                        }
+                        else {
+                            print("error while retreiving place info: \(error)")
+                        }
+                    })
+                }
             }
-            else {
-                print("error while retreiving place info: \(error)")
-            }
-        })
+        }
     }
 }
 
