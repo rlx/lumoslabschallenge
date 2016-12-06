@@ -16,6 +16,7 @@ class ViewController: UIViewController , CLLocationManagerDelegate{
     var currentLocation:CLLocation? = nil
     var placesMan:GMSPlacesClient? = nil
     
+    //MARK: - create and configre map
     func createMap(camera:GMSCameraPosition)
     {
         DispatchQueue.main.async {
@@ -46,7 +47,7 @@ class ViewController: UIViewController , CLLocationManagerDelegate{
         currentLocation = loc
         self.setupMap()
     }
-    
+    //MARK: - alert
     func showAlertNoAction(title:String, description:String) {
         let alert = UIAlertController.init(title: title, message: description, preferredStyle: .alert)
         let defaultAction = UIAlertAction.init(title: "OK", style: .default, handler: nil)
@@ -55,6 +56,7 @@ class ViewController: UIViewController , CLLocationManagerDelegate{
             self.present(alert, animated: true, completion: nil)
         }
     }
+    //MARK: - location authorization
     func setupLocationAuthorization() {
         let state = CLLocationManager.authorizationStatus()
         switch state {
@@ -68,6 +70,7 @@ class ViewController: UIViewController , CLLocationManagerDelegate{
             break
         }
     }
+    //MARK: - view did load
     override func viewDidLoad() {
         super.viewDidLoad()
         placesMan = GMSPlacesClient.shared()
@@ -100,10 +103,10 @@ class ViewController: UIViewController , CLLocationManagerDelegate{
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("failed to obtain location with Error: \(error)")
     }
-    //MARK: places
-    // This SDK API does not work well - it doesnt respect the location!
-    // Leaving it for reference. The work around is to use this web service: https://maps.googleapis.com/maps/api/place/nearbysearch/json?input=italiam%20restaurant&types=establishment&location=32.0833,34.804469&radius=50&key=AIzaSyA-RfcEPpzIuiBoiBpM3Y55RZMaLOXvIhE
     
+    //MARK: - places - bad API results (dont use)
+    // This SDK API does not work well - it doesnt respect the location!
+    // Leaving it for reference. The work around is to use the places web service (nearbysearch)
     func obtainPlacesAutoCompleteInMapVisibleRegion() {
         let filter = GMSAutocompleteFilter()
         filter.type = .establishment
@@ -134,6 +137,7 @@ class ViewController: UIViewController , CLLocationManagerDelegate{
             })
         }
     }
+    //MARK: - Marker setup
     func translatePriceLevelToStr(pLevel:GMSPlacesPriceLevel) ->String
     {
         switch (pLevel) {
@@ -151,13 +155,23 @@ class ViewController: UIViewController , CLLocationManagerDelegate{
             return "unknown"
         }
     }
+    func translateOpenStatus(openStatus:GMSPlacesOpenNowStatus) -> String {
+        switch openStatus {
+        case .no:
+            return "No"
+        case .yes:
+            return "Yes"
+        default:
+            return "Unknown"
+        }
+    }
     func createAMarkerOnTheMapFor(place:GMSPlace) {
         // interacting with the map view, lets do it on main thread
         let marker = GMSMarker(position: place.coordinate)
         marker.title = place.name
-        let openNow = (place.openNowStatus == .yes) ? "Yes": "No (or unknown)"
-        let phone = (place.phoneNumber != nil) ? place.phoneNumber! : ""
-        let address = (place.formattedAddress != nil) ? place.formattedAddress!: ""
+        let openNow = translateOpenStatus(openStatus: place.openNowStatus)
+        let phone = (place.phoneNumber != nil) ? place.phoneNumber! : "(no phone)"
+        let address = (place.formattedAddress != nil) ? place.formattedAddress!: "(no address)"
         let rating = place.rating
         let priceLevel = self.translatePriceLevelToStr(pLevel: place.priceLevel)
             
@@ -167,19 +181,23 @@ class ViewController: UIViewController , CLLocationManagerDelegate{
             marker.map = self.mapView
         }
     }
-    
-    func obtainPlacesNearCurrentUserLocation() {
-        // we call the nearby search WEB service instead of the ios SDK
-        let sessionConfig = URLSessionConfiguration.default
-        let session = URLSession(configuration: sessionConfig)
+    //MARK: - places web API
+    func buildMapAPIURL() -> String? {
         let searchTerm = "Italian restaurant"
         var urlString:String? = nil
         let radiusMeters = 5000
         // make sure we have current location (otherwise the urlString will be nil
         if let coordinate = currentLocation?.coordinate {
             urlString = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=\(searchTerm)&type=restaurant&location=\(coordinate.latitude),\(coordinate.longitude)&radius=\(radiusMeters)&key=AIzaSyA-RfcEPpzIuiBoiBpM3Y55RZMaLOXvIhE".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-            print("URL: \(urlString)")
+            print("URL: \(urlString!)")
         }
+        return urlString
+    }
+    func obtainPlacesNearCurrentUserLocation() {
+        // we call the nearby search WEB service instead of the ios SDK
+        let sessionConfig = URLSessionConfiguration.default
+        let session = URLSession(configuration: sessionConfig)
+        let urlString = buildMapAPIURL()
         // if we have a valid URL object (urlString was not nil)
         if let url = URL(string: urlString!) {
             // create a network data task to retrieve the result
@@ -187,35 +205,36 @@ class ViewController: UIViewController , CLLocationManagerDelegate{
                 if ((error == nil) && (data != nil)) {
                     //parse the results JSON string
                     if let d = try? JSONSerialization.jsonObject(with: data!)  {
-                        let dataDict = d as! Dictionary<String,AnyObject>
                         // if we made it thus far, lets go over the data and create markers on the map for it
                         DispatchQueue.global().async {
-                            self.createMarkerForMapSearchNearbyResults(data: dataDict)
+                            self.processPlaceWebAPIResponseData(data: d as! Dictionary<String, AnyObject>)
                         }
                     }
                 }
                 else {
-                    print("received error: \(error) \n data: \(data)")
+                    print("received error: \(error) \ndata: \(data)")
                 }
             }
+            // dont forget the "run" the task
             task.resume()
         }
         else {
-            print("bad url?")
+            print("bad url object (encoding issues with the urlString?)")
         }
     }
+    
     let RESULTS = "results"
     let PLACE_ID_KEY = "place_id"
     
-    func createMarkerForMapSearchNearbyResults(data:Dictionary<String,AnyObject>) {
+    func processPlaceWebAPIResponseData(data:Dictionary<String,AnyObject>) {
         if let resultsData:Array<AnyObject> = data[RESULTS] as? Array<AnyObject> {
             for placeInfo in resultsData{
+                // inside the array we have dictionaries..
                 if let placeID:String = placeInfo[PLACE_ID_KEY] as? String {
                     // now that we extracted the place id, lets get the details
                     self.placesMan!.lookUpPlaceID(placeID , callback: { (place:GMSPlace?, error:Error?) in
-//                        print("details for \(place?.name):\(place) ")
                         if let p = place {
-                            // finally create the marker and attach to the map
+                            // finally create the actual marker and attach to the map
                             self.createAMarkerOnTheMapFor(place: p)
                         }
                         else {
